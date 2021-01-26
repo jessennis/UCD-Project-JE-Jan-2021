@@ -12,19 +12,11 @@ covid_df2=covid_df.loc[:, ['TimeStamp','CountyName','ConfirmedCovidCases']]
 covid_pt=covid_df2.pivot_table(values='ConfirmedCovidCases', index='TimeStamp', columns='CountyName')
 National=covid_pt.sum(axis="columns")
 covid_pt["National"]= National
-print(covid_pt.loc[:,('Dublin','National')])
-Dublin_NewCases=(np.diff(covid_pt['Dublin']))
-National_NewCases=(np.diff(covid_pt['National']))
-print(Dublin_NewCases, National_NewCases)
+print(covid_pt)
 
-sns.relplot(x="TimeStamp", y="Dublin", data=covid_pt, kind="line")
+fig, ax = plt.subplots()
+ax.plot(covid_pt.index, covid_pt["Dublin"])
+ax.plot(covid_pt.index, covid_pt["National"])
+ax.set_xlabel('TimeStamp')
+ax.set_ylabel('ConfirmedCovidCases')
 plt.show()
-
-
-
-
-
-
-
-
-

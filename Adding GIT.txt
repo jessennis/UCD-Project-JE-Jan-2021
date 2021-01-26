@@ -128,3 +128,10 @@ print(Dublin_NewCases, National_NewCases)
 sns.relplot(x="TimeStamp", y="Dublin", data=covid_pt, kind="line")
 plt.show()
 
+
+
+Monday
+
+covid_pt.pivot_table(Index=pd.Grouper(freq='D', key='TimeStamp'), column='CountyName')
+print(covid_pt)
+
