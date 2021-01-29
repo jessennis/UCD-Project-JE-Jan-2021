@@ -7,8 +7,10 @@ import seaborn as sns
 url = 'https://opendata-geohive.hub.arcgis.com/datasets/d9be85b30d7748b5b7c09450b8aede63_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D'
 urlretrieve(url, 'covid_county.csv')
 covid_df = pd.read_csv('covid_county.csv', index_col=0)
-
+print(covid_df.head())
 covid_df.info()
+
+
 covid_df['TimeStamp']=pd.to_datetime(covid_df['TimeStamp'])
 covid_pt = covid_df.pivot_table(index=pd.Grouper(freq='D', key='TimeStamp'), columns='CountyName', values='ConfirmedCovidCases', aggfunc='sum')
 National = covid_pt.sum(axis="columns")
@@ -19,10 +21,14 @@ df=covid_pt.loc[:, ['Dublin', 'National']]
 print(df)
 NewCases_df=df.diff()
 print(NewCases_df)
+print(NewCases_df.isna().sum())
+NewCases_df2=NewCases_df.fillna(0)
+print(NewCases_df2)
+
 
 fig, ax = plt.subplots()
-ax.plot(NewCases_df.index, NewCases_df["Dublin"])
-ax.plot(NewCases_df.index, NewCases_df["National"])
+ax.plot(NewCases_df2.index, NewCases_df2["Dublin"])
+ax.plot(NewCases_df2.index, NewCases_df2["National"])
 ax.set_xlabel('TimeStamp')
 ax.set_ylabel('ConfirmedCovidCases')
 ax.set_title("New Covid Cases")
