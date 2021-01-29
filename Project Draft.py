@@ -15,11 +15,18 @@ National = covid_pt.sum(axis="columns")
 covid_pt["National"] = National
 print(covid_pt)
 
-NewCases_df=covid_pt.loc[:, ['Dublin', 'National']]
+df=covid_pt.loc[:, ['Dublin', 'National']]
+print(df)
+NewCases_df=df.diff()
 print(NewCases_df)
-print(NewCases_df.diff())
 
-
+fig, ax = plt.subplots()
+ax.plot(NewCases_df.index, NewCases_df["Dublin"])
+ax.plot(NewCases_df.index, NewCases_df["National"])
+ax.set_xlabel('TimeStamp')
+ax.set_ylabel('ConfirmedCovidCases')
+ax.set_title("New Covid Cases")
+plt.show()
 
 
 
