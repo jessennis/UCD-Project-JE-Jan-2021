@@ -27,12 +27,14 @@ print(NewCases_df2)
 
 
 fig, ax = plt.subplots()
-ax.plot(NewCases_df2.index, NewCases_df2["Dublin"])
-ax.plot(NewCases_df2.index, NewCases_df2["National"])
-ax.set_xlabel('TimeStamp')
-ax.set_ylabel('ConfirmedCovidCases')
+ax.plot(NewCases_df2.index, NewCases_df2["Dublin"],
+        NewCases_df2.index, NewCases_df2["National"])
+ax.set_xlabel("Time (Months)")
+ax.set_ylabel("New Covid Cases per day")
 ax.set_title("New Covid Cases")
+ax.legend()
 plt.show()
+
 
 
 
