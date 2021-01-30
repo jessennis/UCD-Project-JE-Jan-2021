@@ -66,7 +66,7 @@ ax.set_ylabel("New Covid Cases per Proportion of Population per day")
 ax.set_title("New Covid Cases per Proportion of Population ")
 plt.show()
 
-fig4, ax = plt.subplots(2,1)
+fig4, ax = plt.subplots(2,1, sharey=True)
 ax[0].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b')
 ax[0].plot(NewCases_df2.index, NewCases_df2["National"], color='red'),
 ax[1].plot(Pop_df2.index, Pop_df2["Dublin"], color='b')
@@ -78,4 +78,6 @@ plt.show()
 
 Merged_df=NewCases_df2.merge(Pop_df2, on='TimeStamp', how='right')
 print(Merged_df)
-print(Merged_df.head())
+print(Merged_df.columns)
+print(Merged_df[["Dublin_x", "National_x", "Dublin_y", "National_y","Dub_percentage"]].max())
+print(Merged_df[["Dublin_x", "National_x", "Dublin_y", "National_y","Dub_percentage"]].min())
