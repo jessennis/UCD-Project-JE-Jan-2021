@@ -3,7 +3,7 @@ import pandas as pd
 from urllib.request import urlretrieve
 import matplotlib.pyplot as plt
 import seaborn as sns
-import jinja2
+
 
 url = 'https://opendata-geohive.hub.arcgis.com/datasets/d9be85b30d7748b5b7c09450b8aede63_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D'
 urlretrieve(url, 'covid_county.csv')
@@ -32,16 +32,19 @@ print(NewCases_df2)
 NewCases_df2['Dub_percentage'] = pd.Series(["{0:.2f}%".format(val * 100) for val in NewCases_df2['Dub_percentage']], index = NewCases_df2.index)
 print(NewCases_df2)
 
-
-fig, ax = plt.subplots()
-ax.plot(NewCases_df2.index, NewCases_df2["Dublin"],
-        NewCases_df2.index, NewCases_df2["National"])
+fig1, ax = plt.subplots()
+ax.plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b')
+ax.plot(NewCases_df2.index, NewCases_df2["National"], color='red')
 ax.set_xlabel("Time (Months)")
 ax.set_ylabel("New Covid Cases per day")
 ax.set_title("New Covid Cases")
 ax.legend()
 plt.show()
 
-
-
-
+fig2, ax = plt.subplots(2,1)
+ax[0].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b')
+ax[1].plot(NewCases_df2.index, NewCases_df2["National"], color='red')
+ax[1].set_xlabel("Time (Months)")
+ax[1].set_ylabel("New Covid Cases per day")
+ax[1].legend()
+plt.show()
