@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 from urllib.request import urlretrieve
 import matplotlib.pyplot as plt
-import seaborn as sns
-
 
 url = 'https://opendata-geohive.hub.arcgis.com/datasets/d9be85b30d7748b5b7c09450b8aede63_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D'
 urlretrieve(url, 'covid_county.csv')
@@ -47,7 +45,6 @@ ax[1].set_xlabel("Time (Months)")
 ax[1].set_ylabel("New Covid Cases per day")
 plt.show()
 
-
 pop_pt = covid_df.pivot_table(index=pd.Grouper(freq='D', key='TimeStamp'), columns='CountyName', values='PopulationProportionCovidCases', aggfunc='sum')
 National = pop_pt.sum(axis="columns")
 pop_pt["National"] = National
@@ -78,3 +75,7 @@ ax[0].set_xlabel("Time (Months)")
 ax[0].set_ylabel("New Covid Cases per day")
 ax[1].set_ylabel("New Covid Cases per Proportion of Population per day")
 plt.show()
+
+Merged_df=NewCases_df2.merge(Pop_df2, on='TimeStamp', how='right')
+print(Merged_df)
+print(Merged_df.head())
