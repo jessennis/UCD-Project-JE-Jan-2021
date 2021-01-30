@@ -38,7 +38,6 @@ ax.plot(NewCases_df2.index, NewCases_df2["National"], color='red')
 ax.set_xlabel("Time (Months)")
 ax.set_ylabel("New Covid Cases per day")
 ax.set_title("New Covid Cases")
-ax.legend()
 plt.show()
 
 fig2, ax = plt.subplots(2,1)
@@ -46,5 +45,36 @@ ax[0].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b')
 ax[1].plot(NewCases_df2.index, NewCases_df2["National"], color='red')
 ax[1].set_xlabel("Time (Months)")
 ax[1].set_ylabel("New Covid Cases per day")
-ax[1].legend()
+plt.show()
+
+
+pop_pt = covid_df.pivot_table(index=pd.Grouper(freq='D', key='TimeStamp'), columns='CountyName', values='PopulationProportionCovidCases', aggfunc='sum')
+National = pop_pt.sum(axis="columns")
+pop_pt["National"] = National
+print(pop_pt)
+df2=pop_pt.loc[:, ['Dublin', 'National']]
+print(df2)
+Pop_df=df2.diff()
+print(Pop_df)
+print(Pop_df.isna().sum())
+Pop_df2=Pop_df.fillna(0)
+print(Pop_df2)
+
+
+fig3, ax = plt.subplots()
+ax.plot(Pop_df2.index, Pop_df2["Dublin"], color='b')
+ax.plot(Pop_df2.index, Pop_df2["National"], color='red')
+ax.set_xlabel("Time (Months)")
+ax.set_ylabel("New Covid Cases per Proportion of Population per day")
+ax.set_title("New Covid Cases per Proportion of Population ")
+plt.show()
+
+fig4, ax = plt.subplots(2,1)
+ax[0].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b')
+ax[0].plot(NewCases_df2.index, NewCases_df2["National"], color='red'),
+ax[1].plot(Pop_df2.index, Pop_df2["Dublin"], color='b')
+ax[1].plot(Pop_df2.index, Pop_df2["National"], color='red')
+ax[0].set_xlabel("Time (Months)")
+ax[0].set_ylabel("New Covid Cases per day")
+ax[1].set_ylabel("New Covid Cases per Proportion of Population per day")
 plt.show()
