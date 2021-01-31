@@ -26,7 +26,7 @@ ax.set_ylabel("Confirmed Covid Cases per day")
 ax.legend(loc="upper center")
 ax.set_title("Confirmed Covid Cases")
 plt.show()
-
+fig0.savefig("Confirmed Covid Cases")
 
 df=covid_pt.loc[:, ['Dublin', 'National']]
 print(df)
@@ -44,6 +44,7 @@ ax.set_ylabel("New Covid Cases per day")
 ax.set_title("New Covid Cases")
 ax.legend(loc="upper center")
 plt.show()
+fig1.savefig("New Covid Cases")
 
 fc=plt.subplots
 
@@ -57,6 +58,8 @@ ax[1].set_ylabel("New Covid Cases")
 ax[0].legend(loc="upper center")
 ax[1].legend(loc="upper center")
 plt.show()
+fig2.savefig('New Covid Cases V2')
+
 
 pop_pt = covid_df.pivot_table(index=pd.Grouper(freq='D', key='TimeStamp'), columns='CountyName', values='PopulationProportionCovidCases', aggfunc='sum')
 National = pop_pt.sum(axis="columns")
