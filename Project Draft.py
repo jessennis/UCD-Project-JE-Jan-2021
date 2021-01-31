@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from urllib.request import urlretrieve
 import matplotlib.pyplot as plt
@@ -81,16 +80,23 @@ ax2.legend(loc="upper left")
 plt.show()
 fig2.savefig("Proportion of COVID Cases per Population")
 
-fig3, ax = fc(2, sharex=True)
+fig3, ax = fc(2,2, sharex=True)
 fig3.suptitle('New COVID Cases vs Proportion of New COVID Cases per Population')
-ax[0].plot(NewCases_df2.index, NewCases_df2["National"], color='r',label='National'),
-ax[0].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b', label='Dublin')
-ax[1].plot(Pop_df2.index, Pop_df2["Dublin"], color='b', label='Dublin')
-ax[1].plot(Pop_df2.index, Pop_df2["National"], color='r', label='National')
-ax[1].set_xlabel("Time (Months)")
-ax[0].set_ylabel("New Covid Cases")
-ax[1].set_ylabel("Proportion per Population")
-ax[0].legend(loc="upper center")
+ax[0,0].plot(NewCases_df2.index, NewCases_df2["National"], color='r',label='National'),
+ax[0,1].plot(NewCases_df2.index, NewCases_df2["Dublin"], color='b', label='Dublin')
+ax[1,1].plot(Pop_df2.index, Pop_df2["Dublin"], color='b', label='Dublin')
+ax[1,0].plot(Pop_df2.index, Pop_df2["National"], color='r', label='National')
+ax[1,0].set_xlabel("Time (Months)")
+ax[1,1].set_xlabel("Time (Months)")
+ax[0,0].set_ylabel("New Covid Cases")
+ax[1,0].set_ylabel("Proportion per Population")
+ax[0,0].legend(loc="upper center")
+ax[0,1].legend(loc="upper center")
 plt.show()
-
 fig3.savefig("New COVID Cases vs Proportion of New COVID Cases per Population")
+
+Merged_df=NewCases_df2.merge(Pop_df2, on='TimeStamp')
+print(Merged_df)
+print(Merged_df.head())
+print(Merged_df.columns)
+print(Merged_df[["Dublin_x", "National_x", "Dublin_y", "National_y",]].max())
